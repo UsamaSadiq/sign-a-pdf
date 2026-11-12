@@ -73,7 +73,7 @@ export class SignatureDialog {
   private async confirm(): Promise<void> {
     const signature = this.tab === 'draw' ? await this.drawnSignature() : this.uploaded
     if (!signature) {
-      this.showError(this.tab === 'draw' ? 'Draw your signature first.' : 'Upload a signature image first.')
+      this.showError(this.tab === 'draw' ? 'Draw your signature first.' : 'Choose a signature image first.')
       return
     }
     this.finish(signature)
