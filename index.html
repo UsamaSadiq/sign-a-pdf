@@ -4,13 +4,142 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Add text and your signature to any PDF, right in your browser. Your files never leave your device." />
     <title>Sign a PDF</title>
   </head>
   <body>
-    <main id="app">
-      <input id="pdf-input" type="file" accept="application/pdf" />
-      <div id="pages"></div>
-    </main>
+    <section class="landing" data-view="landing">
+      <header class="landing__nav">
+        <span class="brand"><span class="brand__mark" aria-hidden="true">✍</span> Sign a PDF</span>
+        <a class="landing__home" href="/">usamasadiq.us</a>
+      </header>
+
+      <div class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Free · Private · No sign-up</p>
+          <h1>Fill in and sign your PDFs, right in the browser.</h1>
+          <p class="lead">
+            Upload a PDF, type text anywhere on the page, and add your signature by drawing it or uploading an image.
+            Preview the result and download the signed copy.
+          </p>
+          <label class="upload-button" for="pdf-input">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-5 5m5-5 5 5M4 20h16" /></svg>
+            <span data-upload-label>Choose a PDF</span>
+          </label>
+          <input id="pdf-input" class="visually-hidden" type="file" accept="application/pdf,.pdf" />
+          <p class="privacy">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v6c0 4.2 3 7.7 7 9 4-1.3 7-4.8 7-9V6l-7-3Z" /></svg>
+            Your files never leave your device. Everything happens in your browser.
+          </p>
+          <p class="alert" role="alert" data-landing-error hidden></p>
+        </div>
+
+        <div class="hero__art" aria-hidden="true">
+          <svg viewBox="0 0 320 400">
+            <rect class="sheet sheet--back" x="58" y="34" width="230" height="300" rx="14" />
+            <rect class="sheet" x="30" y="58" width="230" height="300" rx="14" />
+            <rect class="line" x="58" y="96" width="140" height="10" rx="5" />
+            <rect class="line" x="58" y="122" width="174" height="8" rx="4" />
+            <rect class="line" x="58" y="142" width="160" height="8" rx="4" />
+            <rect class="line" x="58" y="162" width="174" height="8" rx="4" />
+            <rect class="line" x="58" y="182" width="120" height="8" rx="4" />
+            <rect class="field" x="58" y="214" width="120" height="26" rx="6" />
+            <text class="field-text" x="68" y="232">Jane Doe</text>
+            <path class="signline" d="M58 318h174" />
+            <path class="signature" d="M66 306c10-30 22-40 26-30s-10 34-4 32 16-30 22-28-2 22 4 22 12-16 18-16 2 14 8 14 14-10 22-12" />
+          </svg>
+        </div>
+      </div>
+
+      <ol class="steps">
+        <li><span>1</span><div><strong>Upload</strong><p>Pick any PDF from your device.</p></div></li>
+        <li><span>2</span><div><strong>Type &amp; sign</strong><p>Click on the page to add text or your signature, then drag and resize it.</p></div></li>
+        <li><span>3</span><div><strong>Review &amp; download</strong><p>Check the final PDF, approve it, and save it.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="workspace" data-view="editor" hidden>
+      <header class="toolbar">
+        <div class="toolbar__file" data-file-name></div>
+        <div class="toolbar__tools">
+          <button type="button" class="tool" data-action="add-text">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6V4h14v2M12 4v16m-3 0h6" /></svg>
+            Add text
+          </button>
+          <button type="button" class="tool" data-action="add-signature">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17c3-6 5-9 6-7s-3 8-1 8 4-7 6-6-1 5 1 5 3-2 5-3M3 21h18" /></svg>
+            Add signature
+          </button>
+        </div>
+        <div class="toolbar__actions">
+          <button type="button" class="button button--ghost" data-action="change-file">Change PDF</button>
+          <button type="button" class="button button--primary" data-action="review">Review &amp; finish</button>
+        </div>
+      </header>
+      <div class="hint" data-hint hidden>
+        <span data-hint-text></span>
+        <button type="button" class="hint__cancel" data-action="cancel-placement">Cancel</button>
+      </div>
+      <p class="alert alert--inline" role="alert" data-editor-error hidden></p>
+      <div class="pages" data-pages></div>
+    </section>
+
+    <section class="workspace" data-view="preview" hidden>
+      <header class="toolbar">
+        <div class="toolbar__file">Final preview</div>
+        <p class="toolbar__note">This is exactly how your PDF will look.</p>
+        <div class="toolbar__actions">
+          <button type="button" class="button button--ghost" data-action="back">Back to editing</button>
+          <button type="button" class="button button--primary" data-action="approve">Approve &amp; download</button>
+        </div>
+      </header>
+      <div class="pages pages--preview" data-preview-pages></div>
+    </section>
+
+    <section class="done" data-view="done" hidden>
+      <div class="done__card">
+        <div class="done__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+        </div>
+        <h2>Done! Your signed PDF is downloaded.</h2>
+        <p data-done-file></p>
+        <div class="done__actions">
+          <button type="button" class="button button--ghost" data-action="download-again">Download again</button>
+          <button type="button" class="button button--primary" data-action="restart">Sign another PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="busy" data-busy hidden><span class="spinner"></span><span data-busy-text>Working…</span></div>
+
+    <dialog class="dialog" data-signature-dialog>
+      <h2>Add your signature</h2>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" data-tab="draw" aria-selected="true">Draw</button>
+        <button type="button" role="tab" data-tab="upload" aria-selected="false">Upload image</button>
+      </div>
+      <div data-panel="draw">
+        <canvas class="pad" data-pad></canvas>
+        <div class="pad__footer">
+          <span>Sign with your mouse, finger or stylus.</span>
+          <button type="button" class="link-button" data-action="clear-pad">Clear</button>
+        </div>
+      </div>
+      <div data-panel="upload" hidden>
+        <label class="dropzone" for="signature-input">
+          <strong>Choose an image</strong>
+          <span>PNG or JPG. A white background is removed automatically.</span>
+        </label>
+        <input id="signature-input" class="visually-hidden" type="file" accept="image/*" data-signature-input />
+        <img class="upload-preview" alt="Uploaded signature preview" data-upload-preview hidden />
+      </div>
+      <p class="alert alert--inline" role="alert" data-dialog-error hidden></p>
+      <div class="dialog__actions">
+        <button type="button" class="button button--ghost" data-action="cancel-signature">Cancel</button>
+        <button type="button" class="button button--primary" data-action="use-signature">Use signature</button>
+      </div>
+    </dialog>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
