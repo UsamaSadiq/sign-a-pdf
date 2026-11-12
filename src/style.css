@@ -439,3 +439,63 @@ svg { display: block; }
 @media (prefers-reduced-motion: reduce) {
   .signature { animation: none; stroke-dashoffset: 0; }
 }
+
+.feedback-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1.05rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.feedback-button:hover { background: #1e293b; }
+.feedback-button svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+
+.dialog__intro { margin: -6px 0 16px; color: var(--ink-soft); font-size: 0.925rem; line-height: 1.5; }
+.feedback-form { display: grid; gap: 14px; }
+.choice { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0; padding: 0; border: 0; }
+.choice label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  font-weight: 600;
+  font-size: 0.925rem;
+  cursor: pointer;
+}
+.choice label:has(input:checked) { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-strong); }
+.choice input { accent-color: var(--brand); }
+.field { display: grid; gap: 6px; font-weight: 600; font-size: 0.925rem; }
+.field em { font-weight: 400; color: var(--ink-soft); }
+.field textarea, .field input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  font: inherit;
+  font-weight: 400;
+  resize: vertical;
+}
+.field textarea:focus, .field input:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px rgb(79 70 229 / 0.15); }
+.trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.feedback-done { text-align: center; padding: 8px 0; }
+.feedback-done p { color: var(--ink-soft); }
+.dialog__actions--center { justify-content: center; }
+[data-feedback-submit]:disabled { opacity: 0.6; cursor: wait; }
+
+@media (max-width: 640px) {
+  .choice { grid-template-columns: 1fr; }
+  .feedback-button { right: 12px; bottom: 12px; }
+}

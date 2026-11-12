@@ -110,6 +110,53 @@
       </div>
     </section>
 
+    <button type="button" class="feedback-button" data-action="open-feedback" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5Z" /></svg>
+      Feedback
+    </button>
+
+    <dialog class="dialog" data-feedback-dialog>
+      <div data-feedback-form-view>
+        <h2>Report a problem or suggest an idea</h2>
+        <p class="dialog__intro">
+          Your message is posted publicly on the project's GitHub page so anyone can follow it.
+          Please don't include personal details or anything from your documents.
+        </p>
+        <form class="feedback-form" data-feedback-form>
+          <fieldset class="choice">
+            <legend class="visually-hidden">What kind of feedback?</legend>
+            <label><input type="radio" name="kind" value="problem" checked /> <span>Something isn't working</span></label>
+            <label><input type="radio" name="kind" value="suggestion" /> <span>I have a suggestion</span></label>
+          </fieldset>
+          <label class="field">
+            <span data-feedback-message-label>What went wrong?</span>
+            <textarea name="message" rows="5" required minlength="10" maxlength="3000"></textarea>
+          </label>
+          <label class="field">
+            <span>Your name <em>(optional)</em></span>
+            <input type="text" name="name" maxlength="80" autocomplete="name" />
+          </label>
+          <div class="trap" aria-hidden="true">
+            <label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+          <p class="alert alert--inline" role="alert" data-feedback-error hidden></p>
+          <div class="dialog__actions">
+            <button type="button" class="button button--ghost" data-feedback-close>Cancel</button>
+            <button type="submit" class="button button--primary" data-feedback-submit>Send</button>
+          </div>
+        </form>
+      </div>
+      <div class="feedback-done" data-feedback-done-view hidden>
+        <div class="done__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg></div>
+        <h2>Thank you!</h2>
+        <p>Your message was posted. I read every one.</p>
+        <a class="link-button" data-feedback-issue-link target="_blank" rel="noopener">See it on GitHub</a>
+        <div class="dialog__actions dialog__actions--center">
+          <button type="button" class="button button--primary" data-feedback-close>Close</button>
+        </div>
+      </div>
+    </dialog>
+
     <div class="busy" data-busy hidden><span class="spinner"></span><span data-busy-text>Working…</span></div>
 
     <dialog class="dialog" data-signature-dialog>

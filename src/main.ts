@@ -6,6 +6,8 @@ import { downloadBytes } from './app/download'
 import { showView } from './app/views'
 import { Editor } from './editor/editor'
 import { buildSignedPdf } from './export/exporter'
+import { feedbackEndpoint } from './feedback/client'
+import { FeedbackDialog } from './feedback/dialog'
 import { pageShell } from './pdf/renderer'
 import { SignatureDialog } from './signature/dialog'
 
@@ -117,3 +119,28 @@ onAction('back', () => showView('editor'))
 onAction('approve', approve)
 onAction('download-again', downloadOutput)
 onAction('restart', restart)
+
+function setUpFeedback(): void {
+  const endpoint = feedbackEndpoint()
+  if (!endpoint) return
+  const dialog = required<HTMLDialogElement>('[data-feedback-dialog]')
+  const feedback = new FeedbackDialog(
+    {
+      dialog,
+      form: required<HTMLFormElement>('[data-feedback-form]', dialog),
+      formView: required('[data-feedback-form-view]', dialog),
+      doneView: required('[data-feedback-done-view]', dialog),
+      messageLabel: required('[data-feedback-message-label]', dialog),
+      error: required('[data-feedback-error]', dialog),
+      submit: required<HTMLButtonElement>('[data-feedback-submit]', dialog),
+      issueLink: required<HTMLAnchorElement>('[data-feedback-issue-link]', dialog),
+      closeButtons: [...dialog.querySelectorAll<HTMLButtonElement>('[data-feedback-close]')],
+    },
+    endpoint,
+  )
+  const button = required<HTMLButtonElement>('[data-action="open-feedback"]')
+  button.hidden = false
+  button.addEventListener('click', () => feedback.open())
+}
+
+setUpFeedback()

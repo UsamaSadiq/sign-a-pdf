@@ -1,0 +1,17 @@
+name = "sign-a-pdf-feedback"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+workers_dev = false
+routes = [{ pattern = "usamasadiq.us/api/sign-a-pdf/feedback", zone_name = "usamasadiq.us" }]
+
+[vars]
+GITHUB_REPO = "UsamaSadiq/sign-a-pdf"
+ALLOWED_ORIGINS = "https://usamasadiq.us,http://localhost:5173,http://localhost:5179"
+
+[[ratelimits]]
+name = "FEEDBACK_LIMITER"
+namespace_id = "7274"
+
+  [ratelimits.simple]
+  limit = 3
+  period = 60
