@@ -48,3 +48,7 @@ pbpaste | npx wrangler secret put GITHUB_TOKEN
 ```
 
 The token needs only **Issues: Read and write** on this repository. Pipe it in as shown: run without a terminal prompt, `wrangler secret put` stores an empty value.
+
+## License
+
+[MIT](LICENSE)
