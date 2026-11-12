@@ -52,7 +52,7 @@ async function createIssue(draft: IssueDraft, env: Env): Promise<string | null> 
   const response = await fetch(`https://api.github.com/repos/${env.GITHUB_REPO}/issues`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${env.GITHUB_TOKEN.trim()}`,
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
       'User-Agent': 'sign-a-pdf-feedback',
